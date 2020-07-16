@@ -11,20 +11,39 @@ loginBtn.addEventListener("click", function () {
 const depositBtn = document.getElementById("deposit");
 depositBtn.addEventListener("click", function () {
     const depositAmount = getValueFromDWInput("depositValue");
-    updateValue("currentDeposit", depositAmount);
-    document.getElementById("depositValue").value = "";
-    updateValue("currentBalance", depositAmount);
+
+    if (depositAmount < 0) {
+        alert("Amount cannot be negative.");
+        document.getElementById("depositValue").value = "";
+    } else {
+        if (confirm("Are you sure you want to deposit?") == true) {
+            updateValue("currentDeposit", depositAmount);
+            document.getElementById("depositValue").value = "";
+            updateValue("currentBalance", depositAmount);
+        } else {
+            document.getElementById("depositValue").value = "";
+        }
+    }
 })
 
 //withdraw button handler
 const withdrawBtn = document.getElementById("withdraw");
 withdrawBtn.addEventListener("click", function () {
     const withdrawAmount = getValueFromDWInput("withdrawValue");
-    updateValue("currentWithdraw", withdrawAmount);
-    document.getElementById("withdrawValue").value = "";
-    updateValue("currentBalance", -1 * withdrawAmount);
-})
 
+    if (withdrawAmount < 0) {
+        alert("Amount cannot be negative.");
+        document.getElementById("withdrawValue").value = "";
+    } else {
+        if (confirm("Are you sure you want to withdraw?") == true) {
+            updateValue("currentWithdraw", withdrawAmount);
+            document.getElementById("withdrawValue").value = "";
+            updateValue("currentBalance", -1 * withdrawAmount);
+        } else {
+            document.getElementById("withdrawValue").value = "";
+        }
+    }
+})
 
 function getValueFromDWInput(id) {
     const value = document.getElementById(id).value;
